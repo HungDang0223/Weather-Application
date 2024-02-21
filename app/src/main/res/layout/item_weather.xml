@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="75dp"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="2dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/hour"
+        android:text="8:00CH"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:src="@drawable/i01d"
+        android:id="@+id/icon"
+        android:textAlignment="viewEnd"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperature"
+        android:textAlignment="center"
+        android:text="26°C"
+        android:textSize="15sp"
+        />
+</LinearLayout>
