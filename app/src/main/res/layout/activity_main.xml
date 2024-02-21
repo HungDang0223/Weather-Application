@@ -26,16 +26,7 @@
             android:text="Huế"
             />
     </LinearLayout>
-    <include
-        android:id="@+id/layout"
-        layout="@layout/main_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/taskNavBar"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swiperefreshlayout"
         android:layout_width="match_parent"
@@ -46,9 +37,16 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="50dp">
 
-        <androidx.core.widget.NestedScrollView
+        <include
+            android:id="@+id/layout"
+            layout="@layout/main_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:layout_above="@id/taskNavBar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>
