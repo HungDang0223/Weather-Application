@@ -6,7 +6,6 @@ import static com.example.weatherapplication.Location.City.setCoordinates;
 import android.Manifest;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -15,21 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,22 +29,14 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import com.android.volley.toolbox.Volley;
 import com.example.weatherapplication.DayAdapter.Item;
 import com.example.weatherapplication.DayAdapter.ItemsAdapter;
 import com.example.weatherapplication.LocalStorage.LocalStorageManager;
-import com.example.weatherapplication.Location.LocationConnectivity;
 import com.example.weatherapplication.URL.LinkAPI;
-import com.example.weatherapplication.Location.LocationInfo;
-import com.example.weatherapplication.Location.City;
 import com.example.weatherapplication.network.InternetConnectivity;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,9 +44,6 @@ import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -77,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     private static final int PERMISSION_CODE = 1;
     Address address;
     int hmdt, press;
-    String city = "", locality = "", API_KEY;
+    String city = "", locality = "";
     double currentTemp = 0, feelTemp = 0, windSp;
     String icon, tempUnit, weatherDes, crDate;
     Date date;
@@ -88,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     LocationManager locationManager;
     Location location;
     int mainColor, textColor;
+    boolean isPause = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +93,17 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         getLocation();
 
         renderDataWhenDisConnected();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isPause = false;
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isPause = true;
     }
 
     @Override
@@ -178,7 +171,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
                     @Override
                     public void onProviderDisabled(@NonNull String provider) {
-                        Toast.makeText(MainActivity.this, "Bật dịch vụ Vị trí để thu thập thông tin thời tiết tại vị trí hiện tại của bạn.", Toast.LENGTH_SHORT).show();
+                        if (!isPause) {
+                            Toast.makeText(MainActivity.this, "Bật dịch vụ Vị trí để thu thập thông tin thời tiết tại vị trí hiện tại của bạn.", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
