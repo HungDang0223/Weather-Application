@@ -1,192 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    tools:context=".MainActivity"
-    android:id="@+id/swiperefreshlayout">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
         android:paddingHorizontal="20dp"
-        android:paddingTop="20dp"
-        android:id="@+id/mainLayout">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="match_parent"
-                android:id="@+id/locationIcon"
-                android:src="@drawable/mapd"
-                android:textAlignment="center"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cityName"
-                android:textSize="15sp"
-                android:text="Huế"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:paddingHorizontal="5dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/currentTemperature"
-                android:textSize="120sp"
-                android:textStyle="normal"
-                android:text="25"
-                />
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:paddingVertical="40dp"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/temperatureUnit"
-                    android:text="°C"
-                    android:textSize="30sp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/weatherDescription"
-                    android:textSize="30sp"
-                    android:text="Nhiều mây"
-                    />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/currentDate"
-                android:text="18 th 2"
-                android:textStyle="bold"
-                />
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="20dp"
+        android:id="@+id/taskNavBar">
+        <ImageView
+            android:layout_width="13dp"
+            android:layout_height="match_parent"
+            android:id="@+id/locationIcon"
+            android:src="@drawable/mapd"
+            android:textAlignment="center"
+            />
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/itemsRecyclerView">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="20dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="Chi tiết thời tiết"
-                />
-        </LinearLayout>
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TableRow>
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Nhiệt độ ngoài trời"
-                        android:textAlignment="center"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/feelTemperature"
-                        android:textSize="24sp"
-                        android:text="24°C"
-                        android:textAlignment="center"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:text="Độ ẩm"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/humidity"
-                        android:textSize="24sp"
-                        android:text="88%"
-                        android:textAlignment="center"
-                        />
-                </LinearLayout>
-            </TableRow>
-            <TableRow
-                android:layout_marginVertical="20dp">
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Gió"
-                        android:textAlignment="center"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/windSpeed"
-                        android:textSize="24sp"
-                        android:text="2 km/h"
-                        android:textAlignment="center"
-                        />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAlignment="center"
-                        android:text="Áp suất không khí"
-                        />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/pressure"
-                        android:textSize="24sp"
-                        android:text="1.012hPa"
-                        android:textAlignment="center"
-                        />
-                </LinearLayout>
-            </TableRow>
-        </TableLayout>
-
+            android:id="@+id/cityName"
+            android:textSize="15sp"
+            android:text="Huế"
+            />
     </LinearLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <include
+        android:id="@+id/layout"
+        layout="@layout/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/taskNavBar"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true">
+
+    </include>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/swiperefreshlayout"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</RelativeLayout>
