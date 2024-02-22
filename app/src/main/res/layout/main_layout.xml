@@ -10,8 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:paddingHorizontal="5dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/startSwiper">
         <TextView
             android:layout_width="wrap_content"
@@ -61,7 +61,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/itemsRecyclerView">
-
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout

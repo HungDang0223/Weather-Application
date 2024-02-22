@@ -26,7 +26,6 @@
             android:text="Huế"
             />
     </LinearLayout>
-
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swiperefreshlayout"
         android:layout_width="match_parent"
