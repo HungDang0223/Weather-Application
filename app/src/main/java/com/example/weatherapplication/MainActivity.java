@@ -2,6 +2,7 @@ package com.example.weatherapplication;
 
 import static com.example.weatherapplication.Location.City.getAddress;
 import static com.example.weatherapplication.Location.City.setCoordinates;
+import static com.example.weatherapplication.UpdateWeatherCondition.UpdateUI.updateWeatherCondition;
 
 import android.Manifest;
 
@@ -20,6 +21,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     String icon, tempUnit, weatherDes, crDate;
     Date date;
     TextView cityName, currentTemperature, temperatureUnit, weatherDescription, currentDate,
-            humidity, feelTemperature, windSpeed, pressure;
+            humidity, feelTemperature, windSpeed, pressure, weatherCondition;
     ImageView reloadIcon;
     LocalStorageManager localStorageManager;
     LocationManager locationManager;
@@ -109,7 +111,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     public void onRefresh() {
         if (!InternetConnectivity.isInternetConnected(this)) {
-            Toast.makeText(this, "Bật Dữ liệu hoặc sử dụng Wi-fi để cập nhật.", Toast.LENGTH_SHORT).show();
+            Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                Toast.makeText(this, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Bật Dữ liệu hoặc sử dụng Wi-fi để cập nhật.", Toast.LENGTH_SHORT).show();
+                swipeRefreshLayout.setRefreshing(false);
+            }, 3000);
         } else {
             getLocation();
             swipeRefreshLayout.setRefreshing(false);
@@ -130,7 +137,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setNavigationBarColor(mainColor);
             getWindow().setStatusBarColor(mainColor);
-//            mainLayout.setBackgroundColor(mainColor);
         }
     }
 
@@ -230,6 +236,9 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     public void renderCurrentWeather(JSONObject response) {
+        int conditionID=800;
+        long sunrise = 0, sunset=0;
+
         address = getAddress(this);
 
         cityName = findViewById(R.id.cityName);
@@ -239,6 +248,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         humidity = findViewById(R.id.humidity);
         windSpeed = findViewById(R.id.windSpeed);
         pressure = findViewById(R.id.pressure);
+        weatherCondition = findViewById(R.id.weatherCondition);
 
         locality = address.getLocality();
         city = address.getAdminArea();
@@ -253,6 +263,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             hmdt = response.getJSONObject("main").getInt("humidity");
             windSp= response.getJSONObject("wind").getDouble("speed");
             press = response.getJSONObject("main").getInt("pressure");
+
+            conditionID = response.getJSONArray("weather").getJSONObject(0).getInt("id");
+            sunrise = response.getJSONObject("sys").getLong("sunrise");
+            sunset  = response.getJSONObject("sys").getLong("sunset");
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d("API_response","K lay duoc");
@@ -265,6 +279,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         humidity.setText(hmdt+"%");
         windSpeed.setText(roundedDouble(windSp * 3.6)+" km/h");
         pressure.setText(new DecimalFormat("#,###").format(press)+"hPa");
+        weatherCondition.setText(updateWeatherCondition(conditionID, sunrise, sunset));
     }
 
     public void renderForecastWeather(JSONObject response) {
