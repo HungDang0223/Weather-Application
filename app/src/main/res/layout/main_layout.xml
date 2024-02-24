@@ -85,8 +85,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nhiệt độ ngoài trời"
+                    android:text="@string/feels_temp"
                     android:textAlignment="center"
+                    android:textSize="16sp"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -105,7 +106,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text="Độ ẩm"
+                    android:text="@string/humidity"
+                    android:textSize="16sp"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -126,8 +128,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Gió"
+                    android:text="@string/win_speed"
                     android:textAlignment="center"
+                    android:textSize="16sp"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -146,7 +149,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
-                    android:text="Áp suất không khí"
+                    android:text="@string/pressure"
+                    android:textSize="16sp"
                     />
                 <TextView
                     android:layout_width="match_parent"

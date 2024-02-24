@@ -21,16 +21,16 @@ public class UpdateUI {
             return  "Trời quang";
         }
         if (condition==801) {
-            if (sunrise>sunset) return "Ngày ít mây"; else return "Đêm ít mây";
+            if (sunrise<sunset) { return "Ngày ít mây"; } else { return "Đêm ít mây"; }
         }
         if (condition==802) {
-            if (sunrise>sunset) return "Ngày mây rải rác"; else return "Đêm mây rải rác";
+            if (sunrise<sunset) { return "Ngày mây rải rác"; } else { return "Đêm mây rải rác"; }
         }
         if (condition==803) {
-            if (sunrise>sunset) return "Ngày nhiều mây"; else return "Đêm nhiều mây";
+            if (sunrise<sunset) { return "Ngày nhiều mây"; } else { return "Đêm nhiều mây"; }
         }
         if (condition==804) {
-            if (sunrise>sunset) return "Ngày âm u"; else return "Đêm âm u";
+            if (sunrise<sunset) { return "Ngày âm u"; } else { return "Đêm âm u"; }
         }
         return null;
     }

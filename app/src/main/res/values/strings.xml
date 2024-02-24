@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="app_name">Thời tiết</string>
+    <string name="feels_temp">Nhiệt độ ngoài trời</string>
+    <string name="humidity">Độ ẩm</string>
+    <string name="win_speed">Gió</string>
+    <string name="pressure">Áp suất không khí</string>
 </resources>
