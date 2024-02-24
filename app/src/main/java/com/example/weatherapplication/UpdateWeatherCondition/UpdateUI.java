@@ -3,7 +3,7 @@ package com.example.weatherapplication.UpdateWeatherCondition;
 public class UpdateUI {
     public static String updateWeatherCondition(int condition, long sunrise, long sunset) {
         if (condition>=200 && condition<232) {
-            return " Trời giông";
+            return "Trời giông";
         }
         if (condition>=300 && condition<321) {
             return "Mưa phùn";

@@ -124,8 +124,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     public void setAppColor() {
-        LinearLayout mainLayout = findViewById(R.id.mainLayout);
-
         mainColor = ContextCompat.getColor(this, R.color.dayBGColor);
         textColor = ContextCompat.getColor(this, R.color.dayTextColor);
 
