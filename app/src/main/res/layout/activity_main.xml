@@ -5,27 +5,40 @@
     android:layout_width="match_parent"
     android:background="@color/white"
     tools:context=".MainActivity">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:paddingHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:id="@+id/taskNavBar">
-        <ImageView
-            android:layout_width="13dp"
-            android:layout_height="match_parent"
-            android:id="@+id/locationIcon"
-            android:src="@drawable/mapd"
-            android:textAlignment="center"
-            />
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cityName"
-            android:textSize="15sp"
-            android:text="Huế"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:id="@+id/locationIcon"
+                android:src="@drawable/mapd"
+                android:textAlignment="center"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/cityName"
+                android:paddingVertical="05dp"
+                android:textSize="16sp"
+                android:text="Huế"
+                android:textAlignment="center"
+                />
+        </LinearLayout>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/colon_icon"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             />
-    </LinearLayout>
+    </RelativeLayout>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swiperefreshlayout"
         android:layout_width="match_parent"

@@ -235,7 +235,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
 
     public void renderCurrentWeather(JSONObject response) {
         int conditionID=800;
-        long sunrise = 0, sunset=0;
 
         address = getAddress(this);
 
@@ -263,8 +262,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             press = response.getJSONObject("main").getInt("pressure");
 
             conditionID = response.getJSONArray("weather").getJSONObject(0).getInt("id");
-            sunrise = response.getJSONObject("sys").getLong("sunrise");
-            sunset  = response.getJSONObject("sys").getLong("sunset");
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d("API_response","K lay duoc");
@@ -277,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         humidity.setText(hmdt+"%");
         windSpeed.setText(roundedDouble(windSp * 3.6)+" km/h");
         pressure.setText(new DecimalFormat("#,###").format(press)+"hPa");
-        weatherCondition.setText(updateWeatherCondition(conditionID, sunrise, sunset));
+        weatherCondition.setText(updateWeatherCondition(conditionID));
     }
 
     public void renderForecastWeather(JSONObject response) {
