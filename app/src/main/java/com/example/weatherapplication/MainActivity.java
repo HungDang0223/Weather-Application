@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.graphics.Rect;
 import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
@@ -22,10 +24,15 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Layout;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,9 +71,10 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     double currentTemp = 0, feelTemp = 0, windSp;
     String icon, tempUnit, weatherDes, crDate;
     Date date;
+    View taskBar;
     TextView cityName, currentTemperature, temperatureUnit, weatherDescription, currentDate,
             humidity, feelTemperature, windSpeed, pressure, weatherCondition;
-    ImageView reloadIcon;
+    RelativeLayout rootLayout;
     LocalStorageManager localStorageManager;
     LocationManager locationManager;
     Location location;
@@ -95,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         getLocation();
 
         renderDataWhenDisConnected();
+
+        handleTaskBar();
     }
 
     @Override
@@ -121,6 +131,31 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             getLocation();
             swipeRefreshLayout.setRefreshing(false);
         }
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        // view ở dưới là vùng có thể nhấp vào, những vùng còn lại khi touch sẽ ẩn view
+        taskBar = findViewById(R.id.taskBar);
+
+        Rect viewRect = new Rect();
+        taskBar.getGlobalVisibleRect(viewRect);
+        if (!viewRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
+            taskBar.setVisibility(View.GONE);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        View view;
+        view = findViewById(R.id.taskBar);
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            view.setVisibility(View.GONE);
+            return true; // Return true to indicate that the event has been handled
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     public void setAppColor() {
@@ -309,9 +344,22 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         }
     }
 
+    public void handleTaskBar() {
+        ImageView imgView;
+
+        imgView = findViewById(R.id.showTaskBar);
+        taskBar = findViewById(R.id.taskBar);
+        rootLayout = findViewById(R.id.rootLayout);
+
+        imgView.setOnClickListener(view1 -> {
+            taskBar.setVisibility(View.VISIBLE);
+        });
+    }
+
     public String roundedDouble(double value) {
         DecimalFormat df = new DecimalFormat("#");
         String formattedValue = df.format(value);
         return formattedValue;
     }
+
 }
