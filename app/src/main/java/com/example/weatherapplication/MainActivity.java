@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     View taskBar;
     TextView cityName, currentTemperature, temperatureUnit, weatherDescription, currentDate,
             humidity, feelTemperature, windSpeed, pressure, weatherCondition;
-    RelativeLayout rootLayout;
+    RelativeLayout rootLayout, changeTemperatureUnit, changeCity;
     LocalStorageManager localStorageManager;
     LocationManager locationManager;
     Location location;
@@ -144,18 +144,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             taskBar.setVisibility(View.GONE);
         }
         return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        View view;
-        view = findViewById(R.id.taskBar);
-
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            view.setVisibility(View.GONE);
-            return true; // Return true to indicate that the event has been handled
-        }
-        return super.onKeyDown(keyCode, event);
     }
 
     public void setAppColor() {
@@ -350,9 +338,23 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         imgView = findViewById(R.id.showTaskBar);
         taskBar = findViewById(R.id.taskBar);
         rootLayout = findViewById(R.id.rootLayout);
+        changeTemperatureUnit = findViewById(R.id.changeTemperatureUnit);
+        changeCity = findViewById(R.id.changeCity);
 
         imgView.setOnClickListener(view1 -> {
             taskBar.setVisibility(View.VISIBLE);
+        });
+        // Xử lý ẩn taskBar khi nhấn bút Back (taskBar đang mở)
+        rootLayout.setFocusableInTouchMode(true);
+        rootLayout.requestFocus();
+        rootLayout.setOnKeyListener((view, i, keyEvent) -> {
+            if (i == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_DOWN
+                && taskBar.getVisibility() == View.VISIBLE) {
+                taskBar = findViewById(R.id.taskBar);
+                taskBar.setVisibility(View.GONE);
+                return true;
+            }
+            return false;
         });
     }
 
