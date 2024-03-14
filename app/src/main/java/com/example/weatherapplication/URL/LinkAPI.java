@@ -20,7 +20,7 @@ public class LinkAPI {
     public String getLink3hForecastAPI() { return link_3h_Forecast_API; }
 
     public void setCity_URL(String cityName) {
-        city_URL = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid="+LocationInfo.API_KEY;
+        city_URL = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid="+LocationInfo.API_KEY+"&units=metric";
     }
 
     public String getCity_URL() {

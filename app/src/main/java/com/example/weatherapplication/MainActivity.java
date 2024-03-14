@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.location.Address;
@@ -24,14 +25,11 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Layout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +43,7 @@ import com.example.weatherapplication.DayAdapter.Item;
 import com.example.weatherapplication.DayAdapter.ItemsAdapter;
 import com.example.weatherapplication.LocalStorage.LocalStorageManager;
 import com.example.weatherapplication.URL.LinkAPI;
+import com.example.weatherapplication.ViewComponent.AddCityActivity;
 import com.example.weatherapplication.network.InternetConnectivity;
 
 import org.json.JSONArray;
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     View taskBar;
     TextView cityName, currentTemperature, temperatureUnit, weatherDescription, currentDate,
             humidity, feelTemperature, windSpeed, pressure, weatherCondition;
-    RelativeLayout rootLayout, changeTemperatureUnit, changeCity;
+    RelativeLayout rootLayout, changeTemperatureUnit, addCityBtn, addCityView;
     LocalStorageManager localStorageManager;
     LocationManager locationManager;
     Location location;
@@ -141,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         Rect viewRect = new Rect();
         taskBar.getGlobalVisibleRect(viewRect);
         if (!viewRect.contains((int) ev.getRawX(), (int) ev.getRawY())) {
-            taskBar.setVisibility(View.GONE);
+            taskBar.setVisibility(View.INVISIBLE);
         }
         return super.dispatchTouchEvent(ev);
     }
@@ -333,17 +332,27 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     }
 
     public void handleTaskBar() {
-        ImageView imgView;
+        final boolean[] isTaskBarVisible = {false};
 
-        imgView = findViewById(R.id.showTaskBar);
+        ImageView showTaskbar;
+        
         taskBar = findViewById(R.id.taskBar);
+        showTaskbar = findViewById(R.id.showTaskBar);
+        taskBar.setVisibility(View.INVISIBLE);
         rootLayout = findViewById(R.id.rootLayout);
         changeTemperatureUnit = findViewById(R.id.changeTemperatureUnit);
-        changeCity = findViewById(R.id.changeCity);
+        addCityBtn = findViewById(R.id.addCityBtn);
 
-        imgView.setOnClickListener(view1 -> {
-            taskBar.setVisibility(View.VISIBLE);
+        // Bật/Tắt khi nhấn vào show task bar
+        showTaskbar.setOnClickListener(v -> {
+            if (isTaskBarVisible[0]) {
+                taskBar.setVisibility(View.INVISIBLE);
+            } else {
+                taskBar.setVisibility(View.VISIBLE);
+            }
+            isTaskBarVisible[0] = !isTaskBarVisible[0];
         });
+
         // Xử lý ẩn taskBar khi nhấn bút Back (taskBar đang mở)
         rootLayout.setFocusableInTouchMode(true);
         rootLayout.requestFocus();
@@ -351,13 +360,19 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
             if (i == KeyEvent.KEYCODE_BACK && keyEvent.getAction() == KeyEvent.ACTION_DOWN
                 && taskBar.getVisibility() == View.VISIBLE) {
                 taskBar = findViewById(R.id.taskBar);
-                taskBar.setVisibility(View.GONE);
+                taskBar.setVisibility(View.INVISIBLE);
                 return true;
             }
             return false;
         });
-    }
 
+        addCityBtn.setOnClickListener(view -> {
+            Intent addCityIntent = new Intent(MainActivity.this, AddCityActivity.class);
+            taskBar.setVisibility(View.INVISIBLE);
+            startActivity(addCityIntent);
+        });
+
+    }
     public String roundedDouble(double value) {
         DecimalFormat df = new DecimalFormat("#");
         String formattedValue = df.format(value);

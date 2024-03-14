@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="grey">#CCCCCC</color>
     <color name="appBGColor">#FFFFFF</color>
 
     <color name="nightBGColor">#222831</color>
@@ -11,4 +12,5 @@
 
     <color name="dayTextColor">#000000</color>
     <color name="nightTextColor">#ffffff</color>
+    <color name="colorTextHint">#909090</color>
 </resources>

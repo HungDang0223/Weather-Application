@@ -12,3 +12,4 @@ public class LocationInfo{
 }
 //https://api.openweathermap.org/data/2.5/forecast?lat=16.517269134521484&lon=107.5261001586914&appid=f206a4d46d5cec2ccbb18347f02a64ba&units=metric
 //https://api.openweathermap.org/data/2.5/weather?lat=16.517269134521484&lon=107.5261001586914&appid=f206a4d46d5cec2ccbb18347f02a64ba&units=metric
+//https://api.openweathermap.org/data/2.5/weather?q=hue&appid=f206a4d46d5cec2ccbb18347f02a64ba&units=metric

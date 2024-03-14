@@ -20,7 +20,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/locationIcon"
                 android:src="@drawable/mapd"
-                android:textAlignment="center"
+                android:paddingBottom="3dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -71,6 +71,5 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@id/displayBar"
         android:layout_marginRight="40dp"
-        android:visibility="invisible">
-    </include>
+        android:visibility="invisible"/>
 </RelativeLayout>
